@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoAI | Advanced Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fa-brands fa-ethereum"></i>
+                <span>CryptoAI</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link" onclick="navigateTo('home'); return false;">Home</a></li>
+                <li><a href="#analyze" class="nav-link" onclick="navigateTo('analyze'); return false;">Analyze</a></li>
+            </ul>
+
+            <div class="nav-buttons" id="navButtons">
+                <button class="nav-btn login-btn" onclick="openLoginModal()">Login</button>
+                <button class="nav-btn signup-btn" onclick="openLoginModal()">Sign Up</button>
+            </div>
+
+            <div class="user-profile" id="userProfile" style="display: none;">
+                <span class="user-name">Welcome, <strong id="displayUsername">user</strong></span>
+                <button class="nav-btn logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section home-section active">
+        <canvas id="homeCanvas" class="home-canvas"></canvas>
+        <div class="home-overlay"></div>
+        <div class="home-content">
+            <h1 class="home-title">Next-Gen <span>Crypto</span> Analysis</h1>
+            <p class="home-subtitle">AI-Powered Insights for Smart Trading Decisions</p>
+            <button class="home-cta-btn" onclick="navigateTo('analyze')">Start Analyzing</button>
+        </div>
+    </section>
+
+    <!-- Analyze Section -->
+    <section id="analyze" class="section analyze-section">
+        <div class="container">
+            <header class="analyze-header">
+                <div class="search-box analyze-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="coinInput" placeholder="Search Symbol (BTC, SOL, ETH)...">
+                    <button onclick="analyzeCoin()">ANALYZE</button>
+                </div>
+            </header>
+
+            <main id="resultSection" class="hidden dashboard-grid">
+                <section class="col-left">
+                    <div class="card market-card glass">
+                        <div class="card-header">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <h3>Market Metrics</h3>
+                        </div>
+                        <div id="marketDetails"></div>
+                    </div>
+
+                    <div class="card chart-card glass">
+                        <div class="card-header">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <h3>Sentiment Score</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="cryptoBarChart"></canvas>
+                            <div id="chartCenterText">--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="col-right">
+                    <div class="card ai-card glass glow-blue" id="aiCard">
+                        <div class="ai-header">
+                            <span class="badge"><i class="fa-solid fa-robot"></i> AI AGENT ACTIVE</span>
+                            <h3>Neural Recommendation</h3>
+                        </div>
+                        <div id="aiResponse" class="ai-content"></div>
+                    </div>
+
+                    <div class="card price-chart-card glass">
+                        <div class="card-header">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                            <h3>Price History (30 Days)</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <div id="loader" class="hidden">
+                <div class="glitch-wrapper">
+                    <div class="glitch" data-text="SCANNING BLOCKCHAIN...">SCANNING BLOCKCHAIN...</div>
+                </div>
+                <div class="dna-spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to CryptoAI</h2>
+                <button class="close-btn" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+
+                <div id="loginError" class="error-msg hidden"></div>
+
+                <button type="submit" class="modal-btn">Login</button>
+            </form>
+
+            <p class="modal-footer">Demo: username: <strong>user</strong>, password: <strong>12345678</strong></p>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="loginOverlay" class="modal-overlay hidden" onclick="closeLoginModal()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
